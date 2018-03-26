@@ -10,6 +10,14 @@
 
     </style>
 
+    <!-- Menu Item Theme. This is so it drops down under the action bar instead of over it -->
+    <style name="CustomPopupStyle" parent = "Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/color3</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">-5dp</item>
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
