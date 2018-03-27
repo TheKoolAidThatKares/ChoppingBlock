@@ -5,4 +5,8 @@
     <string name="alerts_name">Alerts</string>
     <string name="report_name">Report</string>
     <string name="settings_name">Settings</string>
+    <string name="bitcoin_name">Bitcoin (BTC)</string>
+    <string name="ethereum_name">Ethereum (ETH)</string>
+    <string name="litecoin_name">Litecoin (LTC)</string>
+
 </resources>
