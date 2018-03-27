@@ -8,5 +8,8 @@
     <string name="bitcoin_name">Bitcoin (BTC)</string>
     <string name="ethereum_name">Ethereum (ETH)</string>
     <string name="litecoin_name">Litecoin (LTC)</string>
+    <string name="motd_name">Message of the Day</string>
+    <string name="motd_date_name">27 March 2018</string>
+    <string name="motd_author_name">Author: Bryan</string>
 
 </resources>
