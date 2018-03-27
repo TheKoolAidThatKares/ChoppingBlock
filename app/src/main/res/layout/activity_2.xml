@@ -10,14 +10,62 @@
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"></include>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/action_bar"
-        android:layout_above="@id/bottom_toolbar"/>
+    <Switch
+        android:id="@+id/bitcoin_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="38dp" />
+
+    <Switch
+        android:id="@+id/ethereum_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bitcoin_toggle"
+        android:layout_below="@+id/bitcoin_toggle"
+        android:layout_marginTop="62dp" />
+
+    <Switch
+        android:id="@+id/litecoin_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ethereum_toggle"
+        android:layout_below="@+id/ethereum_toggle"
+        android:layout_marginTop="56dp" />
+
+    <TextView
+        android:id="@+id/bitcoin_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/bitcoin_toggle"
+        android:layout_marginStart="17dp"
+        android:text="@string/bitcoin_name" />
+
+    <TextView
+        android:id="@+id/ethereum_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bitcoin_textview"
+        android:layout_alignTop="@+id/ethereum_toggle"
+        android:text="@string/ethereum_name" />
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/litecoin_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ethereum_textview"
+        android:layout_alignTop="@+id/litecoin_toggle"
+        android:text="@string/litecoin_name" />
+        android:text="TextView" />
 
     <android.support.v7.widget.ActionMenuView
         android:id="@+id/bottom_toolbar"
@@ -26,5 +74,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/color3"
         android:elevation="4dp" />
+
+
 
 </RelativeLayout>
