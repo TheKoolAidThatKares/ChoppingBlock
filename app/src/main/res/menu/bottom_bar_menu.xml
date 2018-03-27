@@ -3,20 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:layout_gravity="left"
         android:id="@+id/bottom_prices"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:title="@string/prices_name"
         app:showAsAction="ifRoom"></item>
 
     <item
-        android:layout_gravity="left"
         android:id="@+id/bottom_alerts"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:title="@string/alerts_name"
         app:showAsAction="ifRoom"></item>
 
     <item
-        android:layout_gravity="left"
         android:id="@+id/bottom_report"
+        android:icon="@drawable/ic_event_note_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:title="@string/report_name"
         app:showAsAction="ifRoom"></item>
 
