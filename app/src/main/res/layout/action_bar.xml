@@ -6,6 +6,4 @@
     app:theme="@style/CustomToolbarStyle"
     app:popupTheme="@style/CustomPopupStyle">
 
-
-
 </android.support.v7.widget.Toolbar>
