@@ -40,7 +40,7 @@ public class Activity1 extends AppCompatActivity {
     ArrayList<List> btcList = new ArrayList<List>();
     ArrayList<List> ethList = new ArrayList<List>();
     ArrayList<List> litList = new ArrayList<List>();
-    
+
 //    //final TextView mTextView = (TextView) findViewById(R.id.text);
 //// ...
 //
