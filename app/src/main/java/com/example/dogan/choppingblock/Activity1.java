@@ -59,19 +59,13 @@ public class Activity1 extends AppCompatActivity {
 //                }
 //            })
 //
-//    {
-//
-//        /**
-//         * Passing some request headers*
-//         */
-//        @Override
-//        public Map<String, String> getHeaders() throws AuthFailureError {
-//            HashMap<String, String> headers = new HashMap();
-//            headers.put("Content-Type", "application/json");
-//            headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
-//            return headers;
-//        }
-//    };
+
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        HashMap<String, String> headers = new HashMap();
+        headers.put("Content-Type", "application/json");
+        headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+        return headers;
+    }
 
     private RequestQueue mQueue;
 
@@ -107,7 +101,7 @@ public class Activity1 extends AppCompatActivity {
 
     private void jsonParseBTC(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1MIN";
+        String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=100";
 
         // TODO: in the below arrayrequest parameters, there is a null value present. it must be replaced with what i assume is the API key.
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -118,6 +112,7 @@ public class Activity1 extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = response.getJSONObject(count);
 
+
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
@@ -126,7 +121,7 @@ public class Activity1 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                error.printStackTrace();
             }
         });
 
