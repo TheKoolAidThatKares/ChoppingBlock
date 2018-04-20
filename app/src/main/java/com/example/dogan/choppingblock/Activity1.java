@@ -30,12 +30,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Activity1 extends AppCompatActivity {
 
-
+    ArrayList<List> btcList = new ArrayList<List>();
+    ArrayList<List> ethList = new ArrayList<List>();
+    ArrayList<List> litList = new ArrayList<List>();
+    
 //    //final TextView mTextView = (TextView) findViewById(R.id.text);
 //// ...
 //
