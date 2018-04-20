@@ -37,9 +37,9 @@ import java.util.Map;
 
 public class Activity1 extends AppCompatActivity {
 
-    ArrayList<List> btcList = new ArrayList<List>();
-    ArrayList<List> ethList = new ArrayList<List>();
-    ArrayList<List> litList = new ArrayList<List>();
+    ArrayList<Item> btcList = new ArrayList<Item>();
+    ArrayList<Item> ethList = new ArrayList<Item>();
+    ArrayList<Item> litList = new ArrayList<Item>();
 
 //    //final TextView mTextView = (TextView) findViewById(R.id.text);
 //// ...
@@ -116,8 +116,9 @@ public class Activity1 extends AppCompatActivity {
                 while (count<response.length()){
                     try {
                         JSONObject jsonObject = response.getJSONObject(count);
-
-
+                        Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count") );
+                        btcList.add(item);
+                        count++;
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
