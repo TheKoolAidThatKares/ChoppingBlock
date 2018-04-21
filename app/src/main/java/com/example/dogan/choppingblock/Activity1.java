@@ -101,25 +101,30 @@ public class Activity1 extends AppCompatActivity {
         series.setBackgroundColor(Color.rgb(226, 192, 68));
 
         mQueue = Volley.newRequestQueue(this);
-        //jsonParseBTC();
+        jsonParseBTC();
     }
 
     private void jsonParseBTC(){
+
+        Log.i("jsonParseBTC: ", "Entered jsonParseBTC");
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=100";
 
-        // TODO: in the below arrayrequest parameters, there is a null value present. it must be replaced with what i assume is the API key.
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Log.i("onResponse: ", "Entered onResponse");
                 int count = 0;
                 while (count<response.length()){
                     try {
+                        btcList.clear();
                         JSONObject jsonObject = response.getJSONObject(count);
                         Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count") );
                         btcList.add(item);
+                        Log.i("item:", jsonObject.getString("price_open"));
                         count++;
                     } catch (JSONException e){
+                        Log.i("error!", "JSON EXCEPTION");
                         e.printStackTrace();
                     }
                 }
@@ -127,6 +132,7 @@ public class Activity1 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("onErrorResponse: ", "Entered onErrorResponse");
                 error.printStackTrace();
             }
         });
