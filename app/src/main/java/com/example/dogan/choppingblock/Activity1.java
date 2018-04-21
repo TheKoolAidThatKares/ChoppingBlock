@@ -14,10 +14,15 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -42,6 +47,8 @@ public class Activity1 extends AppCompatActivity {
     ArrayList<Item> litList = new ArrayList<Item>();
     RequestQueue queue;
     JsonArrayRequest jsonArrayRequest;
+    Cache cache;
+    Network network;
 //    //final TextView mTextView = (TextView) findViewById(R.id.text);
 //// ...
 //
@@ -99,6 +106,11 @@ public class Activity1 extends AppCompatActivity {
         series.setDrawBackground(true);
         series.setBackgroundColor(Color.rgb(226, 192, 68));
 
+        //below this is volley stuff
+        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        network = new BasicNetwork(new HurlStack());
+        queue = new RequestQueue(cache, network);
+        queue.start();
         jsonParseBTC();
         queue.add(jsonArrayRequest);
     }
@@ -109,7 +121,7 @@ public class Activity1 extends AppCompatActivity {
 
         String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=100";
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.i("onResponse: ", "Entered onResponse");
