@@ -40,7 +40,8 @@ public class Activity1 extends AppCompatActivity {
     ArrayList<Item> btcList = new ArrayList<Item>();
     ArrayList<Item> ethList = new ArrayList<Item>();
     ArrayList<Item> litList = new ArrayList<Item>();
-
+    RequestQueue queue;
+    JsonArrayRequest jsonArrayRequest;
 //    //final TextView mTextView = (TextView) findViewById(R.id.text);
 //// ...
 //
@@ -72,8 +73,6 @@ public class Activity1 extends AppCompatActivity {
         return headers;
     }
 
-    private RequestQueue mQueue;
-
     LineGraphSeries<DataPoint> series;
 
     @Override
@@ -100,14 +99,14 @@ public class Activity1 extends AppCompatActivity {
         series.setDrawBackground(true);
         series.setBackgroundColor(Color.rgb(226, 192, 68));
 
-        mQueue = Volley.newRequestQueue(this);
         jsonParseBTC();
+        queue.add(jsonArrayRequest);
     }
 
     private void jsonParseBTC(){
 
         Log.i("jsonParseBTC: ", "Entered jsonParseBTC");
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=100";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
