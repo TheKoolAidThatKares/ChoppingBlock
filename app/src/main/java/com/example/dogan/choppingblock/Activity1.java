@@ -133,6 +133,7 @@ public class Activity1 extends AppCompatActivity {
                         Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count") );
                         btcList.add(item);
                         Log.i("item:", jsonObject.getString("price_open"));
+                        Log.i("item:", jsonObject.getString("time_period_start"));
                         count++;
                     } catch (JSONException e){
                         Log.i("error!", "JSON EXCEPTION");
