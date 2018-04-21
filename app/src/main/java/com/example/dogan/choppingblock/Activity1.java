@@ -146,7 +146,15 @@ public class Activity1 extends AppCompatActivity {
                 Log.i("onErrorResponse: ", "Entered onErrorResponse");
                 error.printStackTrace();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap();
+                headers.put("Content-Type", "application/json");
+                headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+                return headers;
+            }
+        };
 
     }
 
