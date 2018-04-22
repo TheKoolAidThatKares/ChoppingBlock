@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,21 +47,34 @@ public class Activity3 extends AppCompatActivity {
         Log.d("web", "Created Website ArrayList");
         getWebsite(tv1, tv2, tv3);
 
+        final Button button = findViewById(R.id.butt1);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getWebsite(tv1, tv2, tv3);
+            }
+        });
+
     }
 
     private void createWebsites()
     {
-        Website web1 = new Website("hackernoon.com", "Ermos Kyriakides", "https://hackernoon.com/5-cryptocurrency-investment-tips-6e9e23e223be");
-        web1.addLocation("a145","What is the circulating"," An");
-        //web1.addLocation("0c32","What percentage do the coin","</li>");
+        Website web1 = new Website("Hackernoon.com", "Ermos Kyriakides", "https://hackernoon.com/5-cryptocurrency-investment-tips-6e9e23e223be");
+        web1.addLocation("0c32","What percentage do the coin","do with it?");
 
         Websites.add(web1);
 
         Website web2 = new Website("CryptoPotato.com", "Yuval Gov", "https://cryptopotato.com/8-must-read-tips-trading-bitcoin-altcoins/");
-        //web2.addLocation("post-2251","Have a reason before","<br>");
+        web2.addLocation("post-2251","Have a reason before","for afterwards.");
+        web2.addLocation("post-2251","Not all traders make","by not trading at all.");
         web2.addLocation("post-2251","Manage risk","buying level.");
 
         Websites.add(web2);
+
+        Website web3 = new Website("InvestInBlockchain.com", "Jonnie Emsley", "https://www.investinblockchain.com/how-to-day-trade-cryptocurrency/");
+        web3.addLocation("post-4296","Trading is a skill that","record of success.");
+        web3.addLocation("post-4296","The cryptocurrency market is","be exposed to.");
+
+        Websites.add(web3);
     }
 
     private void getWebsite(final TextView tv1, final TextView tv2, final TextView tv3) {
@@ -87,7 +102,7 @@ public class Activity3 extends AppCompatActivity {
 
                    // for (Element link : links) {
                         builder.append("\n")
-                                .append("\n").append(content.substring(content.indexOf(web.starts.get(place)), content.indexOf(web.ends.get(place)+web.ends.get(place).length())));                          //I really need to change how this one part works just a bit
+                                .append("\n").append(content.substring(content.indexOf(web.starts.get(place)), content.indexOf(web.ends.get(place))+web.ends.get(place).length()));                          //I really need to change how this one part works just a bit
                      //   break;                                                              //https://medium.com/@ssaurel/learn-to-parse-html-pages-on-android-with-jsoup-2a9b0da0096f
                    // }
                 } catch (IOException e) {
