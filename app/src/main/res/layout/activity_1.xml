@@ -15,18 +15,81 @@ tools:context="com.example.dogan.choppingblock.Activity1">
         tools:layout_editor_absoluteY="0dp"></include>
 
 
-    <Button
-        android:id="@+id/refresh_button"
+    <Switch
+        android:id="@+id/btc_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ltc_switch"
+        android:layout_alignBottom="@+id/ltc_switch"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="90dp"
+        android:paddingRight="5dp"
+        android:text="BTC" />
+
+    <Switch
+        android:id="@+id/ltc_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/action_bar"
-        android:text="Button" />
+        android:layout_toRightOf="@id/btc_switch"
+        android:paddingRight="5dp"
+        android:text="LTC" />
 
-    <com.jjoe64.graphview.GraphView
+    <Switch
+        android:id="@+id/eth_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/refresh_button"
-        android:id="@+id/graph"/>
+        android:layout_below="@id/action_bar"
+        android:layout_toRightOf="@id/ltc_switch"
+        android:paddingRight="5dp"
+        android:text="ETH" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/hour_switch"
+        android:layout_below="@id/btc_switch" />
+
+
+    <Switch
+        android:id="@+id/hour_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="38dp"
+        android:paddingRight="5dp"
+        android:text="Hour" />
+
+    <Switch
+        android:id="@+id/day_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/hour_switch"
+        android:layout_alignBottom="@+id/hour_switch"
+        android:layout_toEndOf="@+id/hour_switch"
+        android:paddingRight="5dp"
+        android:text="Day" />
+
+    <Switch
+        android:id="@+id/week_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/graph"
+        android:layout_toEndOf="@+id/day_switch"
+        android:paddingRight="5dp"
+        android:text="Week" />
+
+    <Switch
+        android:id="@+id/month_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/week_switch"
+        android:layout_alignBottom="@+id/week_switch"
+        android:layout_toEndOf="@+id/week_switch"
+        android:paddingRight="5dp"
+        android:text="Month" />
 
     <android.support.v7.widget.ActionMenuView
         android:id="@+id/bottom_toolbar"
