@@ -28,7 +28,7 @@
         android:layout_below="@+id/action_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="@string/motd_name"/>
+        android:text="Expert Advice"/>
 
     <TextView
         android:id="@+id/motd_date_textview"
@@ -57,5 +57,15 @@
         android:text="@string/motd_content_name"
         android:textAlignment="center"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/butt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="85dp"
+        android:background="@color/color2"
+        android:text="Refresh" />
 
 </RelativeLayout>
