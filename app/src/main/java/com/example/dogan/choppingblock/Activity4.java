@@ -35,33 +35,33 @@ public class Activity4  extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         final ColorPicker cp = new ColorPicker(Activity4.this, 0, 0, 0);
+        final View view = this.getWindow().getDecorView();
 
-        /* Show color picker dialog */
-        cp.show();
-
-        /* On Click listener for the dialog, when the user select the color */
-        Button okColor = (Button)cp.findViewById(R.id.okColorButton);
-
-        okColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /* You can get single channel (value 0-255) */
-                int selectedColorR = cp.getRed();
-                int selectedColorG = cp.getGreen();
-                int selectedColorB = cp.getBlue();
-
-                /* Or the android RGB Color (see the android Color class reference) */
-                int selectedColorRGB = cp.getColor();
-
-                cp.dismiss();
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
                 Log.d("list",""+pos+"");
+                /* Show color picker dialog */
                 cp.show();
+
+                /* On Click listener for the dialog, when the user select the color */
+                Button okColor = (Button)cp.findViewById(R.id.okColorButton);
+
+                okColor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        /* You can get single channel (value 0-255) */
+                        int selectedColorR = cp.getRed();
+                        int selectedColorG = cp.getGreen();
+                        int selectedColorB = cp.getBlue();
+
+                        /* Or the android RGB Color (see the android Color class reference) */
+                        int selectedColorRGB = cp.getColor();
+                        view.setBackgroundColor(selectedColorRGB);
+                        cp.dismiss();
+                    }
+                });
             }
         });
 

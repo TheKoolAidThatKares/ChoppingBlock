@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color1">#393E41</color>
-    <color name="color2">#E2C044</color>
-    <color name="color3">#587B7F</color>
-    <color name="color4">#D4CDAB</color>
-    <color name="color5">#1E2019</color>
+    <color name="color1" id="1">#393E41</color>
+    <color name="color2" id="2">#E2C044</color>
+    <color name="color3" id="3">#587B7F</color>
+    <color name="color4" id="4">#D4CDAB</color>
+    <color name="color5" id="5">#1E2019</color>
 </resources>
