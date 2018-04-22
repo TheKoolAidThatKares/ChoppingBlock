@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -52,10 +56,23 @@ public class Activity1 extends AppCompatActivity {
     Cache cache;
     Network network;
     LineGraphSeries<DataPoint> series;
+    private static boolean btcBoolean;
+    private static boolean ltcBoolean;
+    private static boolean ethBoolean;
+    private static boolean hourBoolean;
+    private static boolean weekBoolean;
+    private static boolean monthBoolean;
+    private static boolean dayBoolean;
+    Switch btcSwitch;
+    Switch ethSwitch;
+    Switch ltcSwitch;
+    Switch hourSwitch;
+    Switch daySwitch;
+    Switch weekSwitch;
+    Switch monthSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.w("myApp", "ACTIVITY 1 CREATED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_1);
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
@@ -85,6 +102,129 @@ public class Activity1 extends AppCompatActivity {
         queue.start();
         //jsonParseBTC();
         //queue.add(jsonArrayRequest);
+
+        //
+        btcSwitch = (Switch) findViewById(R.id.btc_switch);
+        btcSwitch.setChecked(true);
+        btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    btcBoolean = true;
+                    ethBoolean = false;
+                    ltcBoolean = false;
+                    ltcSwitch.setChecked(false);
+                    ethSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        ltcSwitch = (Switch) findViewById(R.id.ltc_switch);
+        ltcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    btcBoolean = false;
+                    ethBoolean = false;
+                    ltcBoolean = true;
+                    btcSwitch.setChecked(false);
+                    ethSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        ethSwitch = (Switch) findViewById(R.id.eth_switch);
+        ethSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    btcBoolean = false;
+                    ethBoolean = true;
+                    ltcBoolean = false;
+                    ltcSwitch.setChecked(false);
+                    btcSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        hourSwitch = (Switch) findViewById(R.id.hour_switch);
+        hourSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    hourBoolean = true;
+                    dayBoolean = false;
+                    weekBoolean = false;
+                    monthBoolean = false;
+                    daySwitch.setChecked(false);
+                    weekSwitch.setChecked(false);
+                    monthSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        daySwitch = (Switch) findViewById(R.id.day_switch);
+        daySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    hourBoolean = false;
+                    dayBoolean = true;
+                    weekBoolean = false;
+                    monthBoolean = false;
+                    hourSwitch.setChecked(false);
+                    weekSwitch.setChecked(false);
+                    monthSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        weekSwitch = (Switch) findViewById(R.id.week_switch);
+        weekSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    hourBoolean = false;
+                    dayBoolean = false;
+                    weekBoolean = true;
+                    monthBoolean = false;
+                    daySwitch.setChecked(false);
+                    hourSwitch.setChecked(false);
+                    monthSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
+        monthSwitch = (Switch) findViewById(R.id.month_switch);
+        monthSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    hourBoolean = true;
+                    dayBoolean = false;
+                    weekBoolean = false;
+                    monthBoolean = true;
+                    daySwitch.setChecked(false);
+                    weekSwitch.setChecked(false);
+                    hourSwitch.setChecked(false);
+                }
+                else{
+
+                }
+            }
+        });
 
     }
 
