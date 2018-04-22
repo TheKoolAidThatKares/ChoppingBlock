@@ -70,9 +70,14 @@ public class Activity1 extends AppCompatActivity {
     Switch daySwitch;
     Switch weekSwitch;
     Switch monthSwitch;
+    char currentCurrency;
+    char currentTime;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        currentCurrency = 'b';
+        currentTime = 'h';
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_1);
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
@@ -103,7 +108,6 @@ public class Activity1 extends AppCompatActivity {
         //jsonParseBTC();
         //queue.add(jsonArrayRequest);
 
-        //
         btcSwitch = (Switch) findViewById(R.id.btc_switch);
         btcSwitch.setChecked(true);
         btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -115,6 +119,7 @@ public class Activity1 extends AppCompatActivity {
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
+                    currentCurrency = 'c';
                 }
                 else{
 
@@ -131,6 +136,7 @@ public class Activity1 extends AppCompatActivity {
                     ltcBoolean = true;
                     btcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
+                    currentCurrency = 'l';
                 }
                 else{
 
@@ -147,6 +153,7 @@ public class Activity1 extends AppCompatActivity {
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     btcSwitch.setChecked(false);
+                    currentCurrency = 'e';
                 }
                 else{
 
@@ -165,6 +172,7 @@ public class Activity1 extends AppCompatActivity {
                     daySwitch.setChecked(false);
                     weekSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
+                    currentTime = 'h';
                 }
                 else{
 
@@ -183,6 +191,7 @@ public class Activity1 extends AppCompatActivity {
                     hourSwitch.setChecked(false);
                     weekSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
+                    currentTime = 'd';
                 }
                 else{
 
@@ -201,6 +210,7 @@ public class Activity1 extends AppCompatActivity {
                     daySwitch.setChecked(false);
                     hourSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
+                    currentTime = 'w';
                 }
                 else{
 
@@ -219,6 +229,7 @@ public class Activity1 extends AppCompatActivity {
                     daySwitch.setChecked(false);
                     weekSwitch.setChecked(false);
                     hourSwitch.setChecked(false);
+                    currentTime = 'm';
                 }
                 else{
 
@@ -228,23 +239,65 @@ public class Activity1 extends AppCompatActivity {
 
     }
 
+    private void determineUrl(){
+        if (currentCurrency == 'b'){
+            if (currentTime == 'h'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=2MIN&limit=30";
+            } else if (currentTime == 'd'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1HRS&limit=24";
+            } else if (currentTime == 'w'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=12HRS&limit=14";
+            } else if (currentTime =='m'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=24";
+            }
+        } else if (currentCurrency == 'l'){
+            if (currentTime == 'h'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=2MIN&limit=30";
+            } else if (currentTime == 'd'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=1HRS&limit=24";
+            } else if (currentTime == 'w'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=12HRS&limit=14";
+            } else if (currentTime =='m'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=1DAY&limit=24";
+            }
+        } else if(currentCurrency == 'e'){
+            if (currentTime == 'h'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=2MIN&limit=30";
+            } else if (currentTime == 'd'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=1HRS&limit=24";
+            } else if (currentTime == 'w'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=12HRS&limit=14";
+            } else if (currentTime =='m'){
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=1DAY&limit=24";
+            }
+        }
+    }
+
     private void jsonParseBTC(){
-
-        Log.i("jsonParseBTC: ", "Entered jsonParseBTC");
-
-        String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=100";
+        determineUrl();
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i("onResponse: ", "Entered onResponse");
                 int count = 0;
                 while (count<response.length()){
                     try {
-                        btcList.clear();
+                        if (currentCurrency == 'b'){
+                            btcList.clear();
+                        }   else if(currentCurrency == 'l'){
+                            litList.clear();
+                        }   else if(currentCurrency == 'e'){
+                            ethList.clear();
+                        }
                         JSONObject jsonObject = response.getJSONObject(count);
                         Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count") );
-                        btcList.add(item);
+                        if (currentCurrency == 'b'){
+                            btcList.add(item);
+                        }   else if(currentCurrency == 'l'){
+                            litList.add(item);
+                        }   else if(currentCurrency == 'e'){
+                            ethList.add(item);
+                        }
                         Log.i("item:", jsonObject.getString("price_open"));
                         Log.i("item:", jsonObject.getString("time_period_start"));
                         count++;
