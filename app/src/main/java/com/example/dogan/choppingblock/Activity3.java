@@ -142,7 +142,9 @@ public class Activity3 extends AppCompatActivity {
                 //report
                 break;
             case R.id.settings:
-                //settings
+                intent = new Intent(Activity3.this, Activity4.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             default:
                 //unknown error

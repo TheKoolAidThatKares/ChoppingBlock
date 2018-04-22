@@ -48,7 +48,9 @@ public class Activity2 extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.settings:
-                //settings
+                intent = new Intent(Activity2.this, Activity4.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             default:
                 //unknown error

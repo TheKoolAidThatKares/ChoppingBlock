@@ -18,6 +18,10 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -28,5 +32,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.jjoe64:graphview:4.2.1'
     compile 'com.android.volley:volley:1.1.0'
+    compile 'com.pes.materialcolorpicker:library:1.2.0'
     implementation files('libs/jsoup-1.11.3.jar')
 }
