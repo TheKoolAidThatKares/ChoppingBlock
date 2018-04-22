@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -49,37 +51,6 @@ public class Activity1 extends AppCompatActivity {
     JsonArrayRequest jsonArrayRequest;
     Cache cache;
     Network network;
-//    //final TextView mTextView = (TextView) findViewById(R.id.text);
-//// ...
-//
-//    // Instantiate the RequestQueue.
-//    RequestQueue queue = Volley.newRequestQueue(this);
-//    String url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1MIN";
-//
-//    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-//            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                @Override
-//                public void onResponse(JSONObject response) {
-//                   // mTextView.setText("Response: " + response.toString());
-//                }
-//            }, new Response.ErrorListener() {
-//
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    // TODO: Handle error
-//
-//                }
-//            })
-//
-
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        HashMap<String, String> headers = new HashMap();
-        headers.put("Content-Type", "application/json");
-        headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
-        return headers;
-    }
-
     LineGraphSeries<DataPoint> series;
 
     @Override
@@ -98,6 +69,7 @@ public class Activity1 extends AppCompatActivity {
         y = 0.0;
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
+
         series = new LineGraphSeries<DataPoint>(getDataPoint());
 
         graph.addSeries(series);
@@ -111,8 +83,9 @@ public class Activity1 extends AppCompatActivity {
         network = new BasicNetwork(new HurlStack());
         queue = new RequestQueue(cache, network);
         queue.start();
-        jsonParseBTC();
-        queue.add(jsonArrayRequest);
+        //jsonParseBTC();
+        //queue.add(jsonArrayRequest);
+
     }
 
     private void jsonParseBTC(){
