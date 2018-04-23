@@ -42,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -254,6 +255,7 @@ public class Activity1 extends AppCompatActivity {
         series.setThickness(15);
         series.setDrawBackground(true);
         series.setBackgroundColor(Color.rgb(226, 192, 68));
+
         graphSetupCount++;
     }
 
@@ -261,7 +263,6 @@ public class Activity1 extends AppCompatActivity {
             btcList.clear();
             litList.clear();
             ethList.clear();
-
     }
 
     private void determineUrl() {
@@ -327,6 +328,12 @@ public class Activity1 extends AppCompatActivity {
                 }
                 Log.i("Length of BTC list", Integer.toString(btcList.size()));
                 Log.i("value of cc and ct", Character.toString(currentCurrency) + Character.toString(currentTime));
+                if (currentCurrency == 'b')
+                    Collections.reverse(btcList);
+                if (currentCurrency == 'l')
+                    Collections.reverse(litList);
+                if (currentCurrency == 'e')
+                    Collections.reverse(ethList);
                 setUpGraph();
             }
         }, new Response.ErrorListener() {
