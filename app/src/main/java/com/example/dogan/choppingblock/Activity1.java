@@ -48,6 +48,14 @@ import java.util.Map;
 
 public class Activity1 extends AppCompatActivity {
 
+    private static boolean btcBoolean;
+    int graphSetupCount;
+    private static boolean ltcBoolean;
+    private static boolean ethBoolean;
+    private static boolean hourBoolean;
+    private static boolean weekBoolean;
+    private static boolean monthBoolean;
+    private static boolean dayBoolean;
     ArrayList<Item> btcList = new ArrayList<Item>();
     ArrayList<Item> ethList = new ArrayList<Item>();
     ArrayList<Item> litList = new ArrayList<Item>();
@@ -56,13 +64,6 @@ public class Activity1 extends AppCompatActivity {
     Cache cache;
     Network network;
     LineGraphSeries<DataPoint> series;
-    private static boolean btcBoolean;
-    private static boolean ltcBoolean;
-    private static boolean ethBoolean;
-    private static boolean hourBoolean;
-    private static boolean weekBoolean;
-    private static boolean monthBoolean;
-    private static boolean dayBoolean;
     Switch btcSwitch;
     Switch ethSwitch;
     Switch ltcSwitch;
@@ -73,9 +74,12 @@ public class Activity1 extends AppCompatActivity {
     char currentCurrency;
     char currentTime;
     String url;
+    GraphView graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        graphSetupCount = 0;
+        series = new LineGraphSeries<>();
         currentCurrency = 'b';
         currentTime = 'h';
         super.onCreate(savedInstanceState);
@@ -85,43 +89,34 @@ public class Activity1 extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_iconfinder_icon);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        //linegraph
         double x, y;
         x = 0.0;
         y = 0.0;
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph = (GraphView) findViewById(R.id.graph);
+        queue = Volley.newRequestQueue(this);
 
-        series = new LineGraphSeries<DataPoint>(getDataPoint());
 
-        graph.addSeries(series);
-        series.setColor(Color.rgb(88, 123, 127));
-        series.setThickness(15);
-        series.setDrawBackground(true);
-        series.setBackgroundColor(Color.rgb(226, 192, 68));
-
-        //below this is volley stuff
-        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        network = new BasicNetwork(new HurlStack());
-        queue = new RequestQueue(cache, network);
-        queue.start();
-        //jsonParseBTC();
-        //queue.add(jsonArrayRequest);
-
+        //delete later
+        clearArrayLists();
+        jsonParseBTC();
+        queue.add(jsonArrayRequest);
         btcSwitch = (Switch) findViewById(R.id.btc_switch);
         btcSwitch.setChecked(true);
         btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     btcBoolean = true;
                     ethBoolean = false;
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
                     currentCurrency = 'c';
-                }
-                else{
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                    setUpGraph();
+                } else {
 
                 }
             }
@@ -130,15 +125,17 @@ public class Activity1 extends AppCompatActivity {
         ltcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     btcBoolean = false;
                     ethBoolean = false;
                     ltcBoolean = true;
                     btcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
                     currentCurrency = 'l';
-                }
-                else{
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
 
                 }
             }
@@ -147,15 +144,17 @@ public class Activity1 extends AppCompatActivity {
         ethSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     btcBoolean = false;
                     ethBoolean = true;
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     btcSwitch.setChecked(false);
                     currentCurrency = 'e';
-                }
-                else{
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
 
                 }
             }
@@ -164,7 +163,7 @@ public class Activity1 extends AppCompatActivity {
         hourSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     hourBoolean = true;
                     dayBoolean = false;
                     weekBoolean = false;
@@ -173,8 +172,10 @@ public class Activity1 extends AppCompatActivity {
                     weekSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
                     currentTime = 'h';
-                }
-                else{
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
 
                 }
             }
@@ -183,7 +184,7 @@ public class Activity1 extends AppCompatActivity {
         daySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     hourBoolean = false;
                     dayBoolean = true;
                     weekBoolean = false;
@@ -192,8 +193,10 @@ public class Activity1 extends AppCompatActivity {
                     weekSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
                     currentTime = 'd';
-                }
-                else{
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
 
                 }
             }
@@ -202,7 +205,7 @@ public class Activity1 extends AppCompatActivity {
         weekSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     hourBoolean = false;
                     dayBoolean = false;
                     weekBoolean = true;
@@ -211,9 +214,10 @@ public class Activity1 extends AppCompatActivity {
                     hourSwitch.setChecked(false);
                     monthSwitch.setChecked(false);
                     currentTime = 'w';
-                }
-                else{
-
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
                 }
             }
         });
@@ -221,7 +225,7 @@ public class Activity1 extends AppCompatActivity {
         monthSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     hourBoolean = true;
                     dayBoolean = false;
                     weekBoolean = false;
@@ -230,8 +234,10 @@ public class Activity1 extends AppCompatActivity {
                     weekSwitch.setChecked(false);
                     hourSwitch.setChecked(false);
                     currentTime = 'm';
-                }
-                else{
+                    clearArrayLists();
+                    jsonParseBTC();
+                    queue.add(jsonArrayRequest);
+                } else {
 
                 }
             }
@@ -239,73 +245,89 @@ public class Activity1 extends AppCompatActivity {
 
     }
 
-    private void determineUrl(){
-        if (currentCurrency == 'b'){
-            if (currentTime == 'h'){
+    private void setUpGraph() {
+        if (graphSetupCount>0)
+            graph.removeAllSeries();
+        getDataPoint();
+        graph.addSeries(series);
+        series.setColor(Color.rgb(88, 123, 127));
+        series.setThickness(15);
+        series.setDrawBackground(true);
+        series.setBackgroundColor(Color.rgb(226, 192, 68));
+        graphSetupCount++;
+    }
+
+    private void clearArrayLists() {
+            btcList.clear();
+            litList.clear();
+            ethList.clear();
+
+    }
+
+    private void determineUrl() {
+        if (currentCurrency == 'b') {
+            if (currentTime == 'h') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=2MIN&limit=30";
-            } else if (currentTime == 'd'){
+            } else if (currentTime == 'd') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1HRS&limit=24";
-            } else if (currentTime == 'w'){
+            } else if (currentTime == 'w') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=12HRS&limit=14";
-            } else if (currentTime =='m'){
-                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=24";
+            } else if (currentTime == 'm') {
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=30";
             }
-        } else if (currentCurrency == 'l'){
-            if (currentTime == 'h'){
+        } else if (currentCurrency == 'l') {
+            if (currentTime == 'h') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=2MIN&limit=30";
-            } else if (currentTime == 'd'){
+            } else if (currentTime == 'd') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=1HRS&limit=24";
-            } else if (currentTime == 'w'){
+            } else if (currentTime == 'w') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=12HRS&limit=14";
-            } else if (currentTime =='m'){
-                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=1DAY&limit=24";
+            } else if (currentTime == 'm') {
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_LTC_USD/latest?period_id=1DAY&limit=30";
             }
-        } else if(currentCurrency == 'e'){
-            if (currentTime == 'h'){
+        } else if (currentCurrency == 'e') {
+            if (currentTime == 'h') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=2MIN&limit=30";
-            } else if (currentTime == 'd'){
+            } else if (currentTime == 'd') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=1HRS&limit=24";
-            } else if (currentTime == 'w'){
+            } else if (currentTime == 'w') {
                 url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=12HRS&limit=14";
-            } else if (currentTime =='m'){
-                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=1DAY&limit=24";
+            } else if (currentTime == 'm') {
+                url = "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_ETH_USD/latest?period_id=1DAY&limit=30";
             }
         }
     }
 
-    private void jsonParseBTC(){
+    private void jsonParseBTC() {
         determineUrl();
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Log.i("ENTERED ON RESPONSE", " ");
                 int count = 0;
-                while (count<response.length()){
+                while (count < response.length()) {
                     try {
-                        if (currentCurrency == 'b'){
-                            btcList.clear();
-                        }   else if(currentCurrency == 'l'){
-                            litList.clear();
-                        }   else if(currentCurrency == 'e'){
-                            ethList.clear();
-                        }
                         JSONObject jsonObject = response.getJSONObject(count);
-                        Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count") );
-                        if (currentCurrency == 'b'){
+                        Log.i("JSON OBJECT PRICE CLOSE", jsonObject.getString("price_close"));
+                        Item item = new Item(jsonObject.getString("time_period_start"), jsonObject.getString("time_period_end"), jsonObject.getString("price_open"), jsonObject.getString("price_close"), jsonObject.getString("trades_count"));
+                        if (currentCurrency == 'b') {
                             btcList.add(item);
-                        }   else if(currentCurrency == 'l'){
+                        } else if (currentCurrency == 'l') {
                             litList.add(item);
-                        }   else if(currentCurrency == 'e'){
+                        } else if (currentCurrency == 'e') {
                             ethList.add(item);
                         }
-                        Log.i("item:", jsonObject.getString("price_open"));
-                        Log.i("item:", jsonObject.getString("time_period_start"));
                         count++;
-                    } catch (JSONException e){
+
+                    } catch (JSONException e) {
                         Log.i("error!", "JSON EXCEPTION");
                         e.printStackTrace();
                     }
                 }
+                Log.i("Length of BTC list", Integer.toString(btcList.size()));
+                Log.i("value of cc and ct", Character.toString(currentCurrency) + Character.toString(currentTime));
+                setUpGraph();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -313,7 +335,7 @@ public class Activity1 extends AppCompatActivity {
                 Log.i("onErrorResponse: ", "Entered onErrorResponse");
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
@@ -326,25 +348,37 @@ public class Activity1 extends AppCompatActivity {
     }
 
 
-
-    private DataPoint[] getDataPoint(){
-        DataPoint[] dp = new DataPoint[]{
-                new DataPoint(0, 1),
-                new DataPoint(2, 5),
-                new DataPoint(3, 1),
-                new DataPoint(5, 6),
-                new DataPoint(8, 3),
-        };
-        return (dp);
-
+    private void getDataPoint() {
+        series = new LineGraphSeries<DataPoint>();
+        int currentArrayListLength = 1;
+        double currentX = 0, currentY = 0;
+        if (currentTime == 'h') {
+            currentArrayListLength = 30;
+        } else if (currentTime == 'd') {
+            currentArrayListLength = 24;
+        } else if (currentTime == 'w') {
+            currentArrayListLength = 14;
+        } else if (currentTime == 'm') {
+            currentArrayListLength = 30;
         }
 
+        for (int i = 0; i < currentArrayListLength; i++) {
+            if (currentCurrency == 'b') {
+                currentY = Double.parseDouble(btcList.get(i).getPriceClose());
+            } else if (currentCurrency == 'l') {
+                currentY = Double.parseDouble(litList.get(i).getPriceClose());
+            } else if (currentCurrency == 'e') {
+                currentY = Double.parseDouble(ethList.get(i).getPriceClose());
+            }
+            series.appendData(new DataPoint(i, currentY), true, currentArrayListLength);
+        }
 
+    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.bottom_prices:
                 //prices
                 break;
@@ -373,7 +407,7 @@ public class Activity1 extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         //inflate and initialize the bottom menu
-        ActionMenuView bottom_toolbar = (ActionMenuView)findViewById(R.id.bottom_toolbar);
+        ActionMenuView bottom_toolbar = (ActionMenuView) findViewById(R.id.bottom_toolbar);
         Menu bottomMenu = bottom_toolbar.getMenu();
         getMenuInflater().inflate(R.menu.bottom_bar_menu, bottomMenu);
         for (int i = 0; i < bottomMenu.size(); i++) {
@@ -390,6 +424,6 @@ public class Activity1 extends AppCompatActivity {
         //inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 }
+
+
