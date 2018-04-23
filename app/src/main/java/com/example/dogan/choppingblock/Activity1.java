@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Activity1 extends AppCompatActivity {
-
+    //
     private static boolean btcBoolean;
     int graphSetupCount;
     private static boolean ltcBoolean;
