@@ -6,7 +6,8 @@
 
     <!-- custom style for the action bar created by Bryan. -->
     <style name="CustomToolbarStyle" parent = "Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/color2</item>
+
+
 
     </style>
 

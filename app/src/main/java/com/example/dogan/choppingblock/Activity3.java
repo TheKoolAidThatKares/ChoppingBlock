@@ -1,5 +1,6 @@
 package com.example.dogan.choppingblock;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,14 +23,17 @@ import java.util.Random;
 
 public class Activity3 extends AppCompatActivity {
 
+
     final Random Ran = new Random();
     final ArrayList<Website> Websites = new ArrayList<Website>();
-   // final String[] websites =
-    //        {"https://cryptopotato.com/8-must-read-tips-trading-bitcoin-altcoins/",
-    //         "https://hackernoon.com/5-cryptocurrency-investment-tips-6e9e23e223be"};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.w("myApp","ACTIVITY 3 CREATED");
+
+
+
+        Log.w("myApp", "ACTIVITY 3 CREATED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3);
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
@@ -38,9 +42,11 @@ public class Activity3 extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.ic_iconfinder_icon);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        final TextView tv1 = (TextView)findViewById(R.id.textView4);
-        final TextView tv2 = (TextView)findViewById(R.id.motd_date_textview);
-        final TextView tv3 = (TextView)findViewById(R.id.motd_author_textview);
+        refresh();
+
+        final TextView tv1 = (TextView) findViewById(R.id.textView4);
+        final TextView tv2 = (TextView) findViewById(R.id.motd_date_textview);
+        final TextView tv3 = (TextView) findViewById(R.id.motd_author_textview);
 
         Log.d("web", "About To Create Website ArrayList");
         createWebsites();
@@ -53,8 +59,30 @@ public class Activity3 extends AppCompatActivity {
                 getWebsite(tv1, tv2, tv3);
             }
         });
-
     }
+
+    public void onResume()
+    {
+        super.onResume();
+        refresh();
+    }
+
+    public void refresh()
+    {
+        final View view1 = (View) findViewById(R.id.activity_3_view);
+        final View view2 = (View) findViewById(R.id.action_bar);
+        final View view3 = (View) findViewById(R.id.butt1);
+        final View view5 = (View) findViewById(R.id.bottom_toolbar);
+
+        Context context = this;
+
+        ColorChanger.changeColor(view1, "primary.txt", context);
+        ColorChanger.changeColor(view2, "secondary.txt", context);
+        ColorChanger.changeColor(view3, "secondary.txt", context);
+        ColorChanger.changeColor(view5, "tertiary.txt", context);
+    }
+
+
 
     private void createWebsites()
     {
@@ -163,6 +191,8 @@ public class Activity3 extends AppCompatActivity {
         ActionMenuView bottom_toolbar = (ActionMenuView)findViewById(R.id.bottom_toolbar);
         Menu bottomMenu = bottom_toolbar.getMenu();
         getMenuInflater().inflate(R.menu.bottom_bar_menu, bottomMenu);
+
+
         for (int i = 0; i < bottomMenu.size(); i++) {
             bottomMenu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
@@ -178,4 +208,5 @@ public class Activity3 extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
 }
