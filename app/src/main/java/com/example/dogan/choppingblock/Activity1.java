@@ -1,5 +1,6 @@
 package com.example.dogan.choppingblock;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.ContactsContract;
@@ -42,7 +43,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,13 +95,13 @@ public class Activity1 extends AppCompatActivity {
         y = 0.0;
 
         graph = (GraphView) findViewById(R.id.graph);
-        queue = Volley.newRequestQueue(this);
+        //queue = Volley.newRequestQueue(this);
 
 
         //delete later
         clearArrayLists();
         jsonParseBTC();
-        queue.add(jsonArrayRequest);
+        //queue.add(jsonArrayRequest);
         btcSwitch = (Switch) findViewById(R.id.btc_switch);
         btcSwitch.setChecked(true);
         btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -115,7 +115,7 @@ public class Activity1 extends AppCompatActivity {
                     ethSwitch.setChecked(false);
                     currentCurrency = 'c';
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                    //queue.add(jsonArrayRequest);
                     setUpGraph();
                 } else {
 
@@ -135,7 +135,7 @@ public class Activity1 extends AppCompatActivity {
                     currentCurrency = 'l';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                    //queue.add(jsonArrayRequest);
                 } else {
 
                 }
@@ -154,7 +154,7 @@ public class Activity1 extends AppCompatActivity {
                     currentCurrency = 'e';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                   // queue.add(jsonArrayRequest);
                 } else {
 
                 }
@@ -175,7 +175,7 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'h';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                   // queue.add(jsonArrayRequest);
                 } else {
 
                 }
@@ -196,7 +196,7 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'd';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                   // queue.add(jsonArrayRequest);
                 } else {
 
                 }
@@ -217,7 +217,7 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'w';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                   // queue.add(jsonArrayRequest);
                 } else {
                 }
             }
@@ -237,13 +237,19 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'm';
                     clearArrayLists();
                     jsonParseBTC();
-                    queue.add(jsonArrayRequest);
+                   // queue.add(jsonArrayRequest);
                 } else {
 
                 }
             }
         });
 
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+        refresh();
     }
 
     private void setUpGraph() {
@@ -255,14 +261,30 @@ public class Activity1 extends AppCompatActivity {
         series.setThickness(15);
         series.setDrawBackground(true);
         series.setBackgroundColor(Color.rgb(226, 192, 68));
-
+        refresh();
         graphSetupCount++;
+    }
+
+    public void refresh()
+    {
+        final View view1 = (View) findViewById(R.id.activity_1);
+        final View view2 = (View) findViewById(R.id.action_bar);
+        final View view3 = (View) findViewById(R.id.graph);
+        final View view5 = (View) findViewById(R.id.bottom_toolbar);
+
+        Context context = this;
+
+        ColorChanger.changeColor(view1, "primary.txt", context);
+        ColorChanger.changeColor(view2, "secondary.txt", context);
+        ColorChanger.changeColor(view3, "primary.txt", context);
+        ColorChanger.changeColor(view5, "tertiary.txt", context);
     }
 
     private void clearArrayLists() {
             btcList.clear();
             litList.clear();
             ethList.clear();
+
     }
 
     private void determineUrl() {
@@ -328,12 +350,6 @@ public class Activity1 extends AppCompatActivity {
                 }
                 Log.i("Length of BTC list", Integer.toString(btcList.size()));
                 Log.i("value of cc and ct", Character.toString(currentCurrency) + Character.toString(currentTime));
-                if (currentCurrency == 'b')
-                    Collections.reverse(btcList);
-                if (currentCurrency == 'l')
-                    Collections.reverse(litList);
-                if (currentCurrency == 'e')
-                    Collections.reverse(ethList);
                 setUpGraph();
             }
         }, new Response.ErrorListener() {
@@ -400,7 +416,9 @@ public class Activity1 extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.settings:
-                //settings
+                intent = new Intent(Activity1.this, Activity4.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             default:
                 //unknown error

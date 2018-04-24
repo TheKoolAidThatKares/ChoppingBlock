@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 public class Activity4  extends AppCompatActivity {
@@ -59,6 +60,25 @@ public class Activity4  extends AppCompatActivity {
                 /* Show color picker dialog */
                 cp.show();
 
+                switch (pos)
+                {
+                    case 0:
+                        File dir1 = getFilesDir();
+                        File file1 = new File(dir1, "primary.txt");
+                        file1.delete();
+                        break;
+                    case 1:
+                        File dir2 = getFilesDir();
+                        File file2 = new File(dir2, "secondary.txt");
+                        file2.delete();
+                        break;
+                    case 2:
+                        File dir3 = getFilesDir();
+                        File file3 = new File(dir3, "tertiary.txt");
+                        file3.delete();
+                        break;
+                }
+
                 /* On Click listener for the dialog, when the user select the color */
                 Button okColor = (Button)cp.findViewById(R.id.okColorButton);
 
@@ -74,16 +94,27 @@ public class Activity4  extends AppCompatActivity {
                         /* Or the android RGB Color (see the android Color class reference) */
                         int selectedColorRGB = cp.getColor();
 
+
+
                         cp.dismiss();
                         switch (pos)
                         {
                             case 0:
+                                File dir1 = getFilesDir();
+                                File file1 = new File(dir1, "primary.txt");
+                                file1.delete();
                                 changePrimary(selectedColorRGB);
                                 break;
                             case 1:
+                                File dir2 = getFilesDir();
+                                File file2 = new File(dir2, "secondary.txt");
+                                file2.delete();
                                 changeSecondary(selectedColorRGB);
                                 break;
                             case 2:
+                                File dir3 = getFilesDir();
+                                File file3 = new File(dir3, "tertiary.txt");
+                                file3.delete();
                                 changeTertiary(selectedColorRGB);
                                 break;
                         }
