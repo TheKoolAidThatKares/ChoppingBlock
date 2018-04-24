@@ -374,7 +374,7 @@ public class Activity1 extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
                 headers.put("Content-Type", "application/json");
-                headers.put("X-CoinAPI-Key", "CF3D486B-1855-406E-812C-8939E1CF505F");
+                headers.put("X-CoinAPI-Key", "51A8691D-8BA7-470C-B975-D92ADAACFBCC");
                 return headers;
             }
         };
