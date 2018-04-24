@@ -48,12 +48,14 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_toolbar"
         android:layout_below="@id/action_bar"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:layout_centerHorizontal="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="">
 
             <TextView
                 android:id="@+id/currency_name_1"
