@@ -51,6 +51,7 @@ public class Activity1 extends AppCompatActivity {
     //
     private static boolean btcBoolean;
     int graphSetupCount;
+    int keyManager = 0;
     private static boolean ltcBoolean;
     private static boolean ethBoolean;
     private static boolean hourBoolean;
@@ -95,13 +96,14 @@ public class Activity1 extends AppCompatActivity {
         y = 0.0;
 
         graph = (GraphView) findViewById(R.id.graph);
-        //queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
 
 
         //delete later
         clearArrayLists();
         jsonParseBTC();
-        //queue.add(jsonArrayRequest);
+        queue.add(jsonArrayRequest);
+        keyManager++;
         btcSwitch = (Switch) findViewById(R.id.btc_switch);
         btcSwitch.setChecked(true);
         btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,10 +115,13 @@ public class Activity1 extends AppCompatActivity {
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
-                    currentCurrency = 'c';
+                    currentCurrency = 'b';
+                    clearArrayLists();
                     jsonParseBTC();
-                    //queue.add(jsonArrayRequest);
-                    setUpGraph();
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
+                    if (graphSetupCount == 0)
+                        setUpGraph();
                 } else {
 
                 }
@@ -135,7 +140,8 @@ public class Activity1 extends AppCompatActivity {
                     currentCurrency = 'l';
                     clearArrayLists();
                     jsonParseBTC();
-                    //queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -154,7 +160,8 @@ public class Activity1 extends AppCompatActivity {
                     currentCurrency = 'e';
                     clearArrayLists();
                     jsonParseBTC();
-                   // queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -175,7 +182,8 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'h';
                     clearArrayLists();
                     jsonParseBTC();
-                   // queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -196,7 +204,8 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'd';
                     clearArrayLists();
                     jsonParseBTC();
-                   // queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -217,7 +226,8 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'w';
                     clearArrayLists();
                     jsonParseBTC();
-                   // queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
                 }
             }
@@ -237,7 +247,8 @@ public class Activity1 extends AppCompatActivity {
                     currentTime = 'm';
                     clearArrayLists();
                     jsonParseBTC();
-                   // queue.add(jsonArrayRequest);
+                    queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -281,9 +292,9 @@ public class Activity1 extends AppCompatActivity {
     }
 
     private void clearArrayLists() {
-            btcList.clear();
-            litList.clear();
-            ethList.clear();
+        btcList.clear();
+        litList.clear();
+        ethList.clear();
 
     }
 
@@ -363,7 +374,18 @@ public class Activity1 extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
                 headers.put("Content-Type", "application/json");
-                headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+                switch(keyManager%3)
+                {
+                    case 0:
+                        headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+                        break;
+                    case 1:
+                        headers.put("X-CoinAPI-Key", "F3EBFC18-C646-4EEE-B001-C044103649A4");
+                        break;
+                    case 2:
+                        headers.put("X-CoinAPI-Key", "8142DB64-2037-4522-8C51-2DF62D426C4C");
+                        break;
+                }
                 return headers;
             }
         };
@@ -450,5 +472,3 @@ public class Activity1 extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 }
-
-
