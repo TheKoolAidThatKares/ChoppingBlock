@@ -14,59 +14,231 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"></include>
+        tools:layout_editor_absoluteY="0dp"></include><![CDATA[
 
-    <Switch
-        android:id="@+id/bitcoin_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/action_bar"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="38dp" />
 
-    <Switch
-        android:id="@+id/ethereum_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/bitcoin_toggle"
-        android:layout_below="@+id/bitcoin_toggle"
-        android:layout_marginTop="62dp" />
 
-    <Switch
-        android:id="@+id/litecoin_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ethereum_toggle"
-        android:layout_below="@+id/ethereum_toggle"
-        android:layout_marginTop="56dp" />
 
-    <TextView
-        android:id="@+id/bitcoin_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/bitcoin_toggle"
-        android:layout_marginStart="17dp"
-        android:text="@string/bitcoin_name" />
 
-    <TextView
-        android:id="@+id/ethereum_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/bitcoin_textview"
-        android:layout_alignTop="@+id/ethereum_toggle"
-        android:text="@string/ethereum_name" />
+
+
+
+
+
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/litecoin_textview"
+    android:text="TextView" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ethereum_textview"
-        android:layout_alignTop="@+id/litecoin_toggle"
-        android:text="@string/litecoin_name" />
-        android:text="TextView" />
+        android:layout_above="@id/bottom_toolbar"
+        android:layout_below="@id/action_bar"
+        android:fillViewport="true"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="">
+
+            <TextView
+                android:id="@+id/currency_name_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_1"
+                android:text="currency price"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_1"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_2"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_1"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+            android:id="@+id/currency_name_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="currency name"
+            android:layout_below="@id/currency_name_2"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_3"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_2"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_3"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_4"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_3"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_4"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_5"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_4"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_5"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_6"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_5"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_6"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_7"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_6"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_7"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_8"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_7"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_8"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_9"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_8"
+                android:layout_marginBottom="40dp"/>
+
+            <TextView
+                android:id="@+id/currency_name_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="currency name"
+                android:layout_below="@id/currency_name_9"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="100dp"/>
+
+            <TextView
+                android:id="@+id/currency_price_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/currency_name_10"
+                android:text="currency price"
+                android:layout_below="@id/currency_name_9"
+                android:layout_marginBottom="40dp"/>
+            
+            
+
+        </RelativeLayout>
+    </ScrollView>
 
     <android.support.v7.widget.ActionMenuView
         android:id="@+id/bottom_toolbar"

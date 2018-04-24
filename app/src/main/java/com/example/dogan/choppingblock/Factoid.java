@@ -16,11 +16,10 @@ public class Factoid {
     static ArrayList<String> coins = new ArrayList<String>();
     static ArrayList<Coin> coinInfo = new ArrayList<Coin>();
 
-    public static String getFactoid()
+    public static ArrayList<Coin> getFactoid()
     {
-        String factoid = "";
         buildCoins();
-        return factoid;
+        return coinInfo;
     }
     private static void buildCoins()
     {
