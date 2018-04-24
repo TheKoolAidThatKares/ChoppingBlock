@@ -16,6 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -101,6 +102,7 @@ public class Activity3 extends AppCompatActivity {
         Website web3 = new Website("InvestInBlockchain.com", "Jonnie Emsley", "https://www.investinblockchain.com/how-to-day-trade-cryptocurrency/");
         web3.addLocation("post-4296","Trading is a skill that","record of success.");
         web3.addLocation("post-4296","The cryptocurrency market is","be exposed to.");
+
 
         Websites.add(web3);
     }
