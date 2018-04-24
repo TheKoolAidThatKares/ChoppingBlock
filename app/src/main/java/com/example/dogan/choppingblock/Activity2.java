@@ -12,9 +12,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import static com.example.dogan.choppingblock.Factoid.getFactoid;
 
 
 public class Activity2 extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,26 @@ public class Activity2 extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
+        TextView currencyName1 = findViewById(R.id.currency_name_1);
+        TextView currencyPrice1 = findViewById(R.id.currency_price_1);
+        TextView currencyName2 = findViewById(R.id.currency_name_2);
+        TextView currencyPrice2 = findViewById(R.id.currency_price_2);
+        TextView currencyName3 = findViewById(R.id.currency_name_3);
+        TextView currencyPrice3 = findViewById(R.id.currency_price_3);
+        TextView currencyName4 = findViewById(R.id.currency_name_4);
+        TextView currencyPrice4 = findViewById(R.id.currency_price_4);
+        TextView currencyName5 = findViewById(R.id.currency_name_5);
+        TextView currencyPrice5 = findViewById(R.id.currency_price_5);
+        TextView currencyName6 = findViewById(R.id.currency_name_6);
+        TextView currencyPrice6 = findViewById(R.id.currency_price_6);
+        TextView currencyName7 = findViewById(R.id.currency_name_7);
+        TextView currencyPrice7 = findViewById(R.id.currency_price_7);
+        TextView currencyName8 = findViewById(R.id.currency_name_8);
+        TextView currencyPrice8 = findViewById(R.id.currency_price_8);
+        TextView currencyName9 = findViewById(R.id.currency_name_9);
+        TextView currencyPrice9 = findViewById(R.id.currency_price_9);
+        TextView currencyName10 = findViewById(R.id.currency_name_10);
+        TextView currencyPrice10 = findViewById(R.id.currency_price_10);
 
     }
 
@@ -70,14 +96,14 @@ public class Activity2 extends AppCompatActivity {
 
     public void refresh()
     {
-        final View view1 = (View) findViewById(R.id.activity_2);
+        //final View view1 = (View) findViewById(R.id.activity_2);
         final View view2 = (View) findViewById(R.id.action_bar);
         //final View view3 = (View) findViewById(R.id.graph);
         final View view5 = (View) findViewById(R.id.bottom_toolbar);
 
         Context context = this;
 
-        ColorChanger.changeColor(view1, "primary.txt", context);
+        //ColorChanger.changeColor(view1, "primary.txt", context);
         ColorChanger.changeColor(view2, "secondary.txt", context);
         //ColorChanger.changeColor(view3, "primary.txt", context);
         ColorChanger.changeColor(view5, "tertiary.txt", context);
@@ -108,4 +134,5 @@ public class Activity2 extends AppCompatActivity {
         //inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 }
