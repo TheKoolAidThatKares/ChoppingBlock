@@ -1,6 +1,8 @@
 package com.example.dogan.choppingblock;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Activity2 extends AppCompatActivity {
@@ -56,6 +59,28 @@ public class Activity2 extends AppCompatActivity {
                 //unknown error
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+        refresh();
+    }
+
+
+    public void refresh()
+    {
+        final View view1 = (View) findViewById(R.id.activity_2);
+        final View view2 = (View) findViewById(R.id.action_bar);
+        //final View view3 = (View) findViewById(R.id.graph);
+        final View view5 = (View) findViewById(R.id.bottom_toolbar);
+
+        Context context = this;
+
+        ColorChanger.changeColor(view1, "primary.txt", context);
+        ColorChanger.changeColor(view2, "secondary.txt", context);
+        //ColorChanger.changeColor(view3, "primary.txt", context);
+        ColorChanger.changeColor(view5, "tertiary.txt", context);
     }
 
     @Override

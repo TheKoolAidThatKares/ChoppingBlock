@@ -1,5 +1,6 @@
 package com.example.dogan.choppingblock;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.ContactsContract;
@@ -42,7 +43,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +51,7 @@ public class Activity1 extends AppCompatActivity {
     //
     private static boolean btcBoolean;
     int graphSetupCount;
+    int keyManager = 0;
     private static boolean ltcBoolean;
     private static boolean ethBoolean;
     private static boolean hourBoolean;
@@ -102,6 +103,7 @@ public class Activity1 extends AppCompatActivity {
         clearArrayLists();
         jsonParseBTC();
         queue.add(jsonArrayRequest);
+        keyManager++;
         btcSwitch = (Switch) findViewById(R.id.btc_switch);
         btcSwitch.setChecked(true);
         btcSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,10 +115,13 @@ public class Activity1 extends AppCompatActivity {
                     ltcBoolean = false;
                     ltcSwitch.setChecked(false);
                     ethSwitch.setChecked(false);
-                    currentCurrency = 'c';
+                    currentCurrency = 'b';
+                    clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
-                    setUpGraph();
+                    keyManager++;
+                    if (graphSetupCount == 0)
+                        setUpGraph();
                 } else {
 
                 }
@@ -136,6 +141,7 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -155,6 +161,7 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -176,6 +183,7 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -197,6 +205,7 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
@@ -218,6 +227,7 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
                 }
             }
@@ -238,12 +248,19 @@ public class Activity1 extends AppCompatActivity {
                     clearArrayLists();
                     jsonParseBTC();
                     queue.add(jsonArrayRequest);
+                    keyManager++;
                 } else {
 
                 }
             }
         });
 
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+        refresh();
     }
 
     private void setUpGraph() {
@@ -255,14 +272,30 @@ public class Activity1 extends AppCompatActivity {
         series.setThickness(15);
         series.setDrawBackground(true);
         series.setBackgroundColor(Color.rgb(226, 192, 68));
-
+        refresh();
         graphSetupCount++;
+    }
+
+    public void refresh()
+    {
+        final View view1 = (View) findViewById(R.id.activity_1);
+        final View view2 = (View) findViewById(R.id.action_bar);
+        final View view3 = (View) findViewById(R.id.graph);
+        final View view5 = (View) findViewById(R.id.bottom_toolbar);
+
+        Context context = this;
+
+        ColorChanger.changeColor(view1, "primary.txt", context);
+        ColorChanger.changeColor(view2, "secondary.txt", context);
+        ColorChanger.changeColor(view3, "primary.txt", context);
+        ColorChanger.changeColor(view5, "tertiary.txt", context);
     }
 
     private void clearArrayLists() {
             btcList.clear();
             litList.clear();
             ethList.clear();
+
     }
 
     private void determineUrl() {
@@ -328,12 +361,6 @@ public class Activity1 extends AppCompatActivity {
                 }
                 Log.i("Length of BTC list", Integer.toString(btcList.size()));
                 Log.i("value of cc and ct", Character.toString(currentCurrency) + Character.toString(currentTime));
-                if (currentCurrency == 'b')
-                    Collections.reverse(btcList);
-                if (currentCurrency == 'l')
-                    Collections.reverse(litList);
-                if (currentCurrency == 'e')
-                    Collections.reverse(ethList);
                 setUpGraph();
             }
         }, new Response.ErrorListener() {
@@ -347,7 +374,18 @@ public class Activity1 extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
                 headers.put("Content-Type", "application/json");
-                headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+                switch(keyManager%3)
+                {
+                    case 0:
+                        headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
+                        break;
+                    case 1:
+                        headers.put("X-CoinAPI-Key", "F3EBFC18-C646-4EEE-B001-C044103649A4");
+                        break;
+                    case 2:
+                        headers.put("X-CoinAPI-Key", "8142DB64-2037-4522-8C51-2DF62D426C4C");
+                        break;
+                }
                 return headers;
             }
         };
@@ -400,7 +438,9 @@ public class Activity1 extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.settings:
-                //settings
+                intent = new Intent(Activity1.this, Activity4.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             default:
                 //unknown error
