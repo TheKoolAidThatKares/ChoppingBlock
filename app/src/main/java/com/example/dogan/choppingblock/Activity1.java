@@ -292,9 +292,9 @@ public class Activity1 extends AppCompatActivity {
     }
 
     private void clearArrayLists() {
-            btcList.clear();
-            litList.clear();
-            ethList.clear();
+        btcList.clear();
+        litList.clear();
+        ethList.clear();
 
     }
 
@@ -374,18 +374,7 @@ public class Activity1 extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
                 headers.put("Content-Type", "application/json");
-                switch(keyManager%3)
-                {
-                    case 0:
-                        headers.put("X-CoinAPI-Key", "75B42803-66B5-4590-BCA9-067F460A383F");
-                        break;
-                    case 1:
-                        headers.put("X-CoinAPI-Key", "F3EBFC18-C646-4EEE-B001-C044103649A4");
-                        break;
-                    case 2:
-                        headers.put("X-CoinAPI-Key", "8142DB64-2037-4522-8C51-2DF62D426C4C");
-                        break;
-                }
+                headers.put("X-CoinAPI-Key", "36577EF3-819E-484E-8931-F2849CB5D10C");
                 return headers;
             }
         };
@@ -406,8 +395,9 @@ public class Activity1 extends AppCompatActivity {
         } else if (currentTime == 'm') {
             currentArrayListLength = 30;
         }
+        int arrayLengthStatic = currentArrayListLength;
 
-        for (int i = 0; i < currentArrayListLength; i++) {
+        for (int i = currentArrayListLength-1; i > 0; i--) {
             if (currentCurrency == 'b') {
                 currentY = Double.parseDouble(btcList.get(i).getPriceClose());
             } else if (currentCurrency == 'l') {
@@ -415,7 +405,7 @@ public class Activity1 extends AppCompatActivity {
             } else if (currentCurrency == 'e') {
                 currentY = Double.parseDouble(ethList.get(i).getPriceClose());
             }
-            series.appendData(new DataPoint(i, currentY), true, currentArrayListLength);
+            series.appendData(new DataPoint(arrayLengthStatic-i, currentY), true, currentArrayListLength);
         }
 
     }
@@ -472,5 +462,3 @@ public class Activity1 extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 }
-
-

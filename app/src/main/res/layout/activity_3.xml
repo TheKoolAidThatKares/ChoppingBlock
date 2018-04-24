@@ -8,6 +8,7 @@
     tools:context="com.example.dogan.choppingblock.Activity1"
     android:id="@+id/activity_3_view">
 
+
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar"
@@ -54,8 +55,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="172dp"
         android:text="@string/motd_content_name"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/motd_random"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="175dp"
+        android:text="@string/motd_content_name2"
         android:textAlignment="center"
         android:textSize="18sp" />
 
