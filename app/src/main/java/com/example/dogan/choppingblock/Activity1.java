@@ -374,7 +374,7 @@ public class Activity1 extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap();
                 headers.put("Content-Type", "application/json");
-                headers.put("X-CoinAPI-Key", "36577EF3-819E-484E-8931-F2849CB5D10C");
+                headers.put("X-CoinAPI-Key", "CF3D486B-1855-406E-812C-8939E1CF505F");
                 return headers;
             }
         };
@@ -395,7 +395,7 @@ public class Activity1 extends AppCompatActivity {
         } else if (currentTime == 'm') {
             currentArrayListLength = 30;
         }
-        int arrayLengthStatic = currentArrayListLength;
+        int arrayLengthStatic = currentArrayListLength-1;
 
         for (int i = currentArrayListLength-1; i > 0; i--) {
             if (currentCurrency == 'b') {
