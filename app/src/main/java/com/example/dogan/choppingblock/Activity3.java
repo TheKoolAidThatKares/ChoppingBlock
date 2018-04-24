@@ -48,16 +48,17 @@ public class Activity3 extends AppCompatActivity {
         final TextView tv1 = (TextView) findViewById(R.id.textView4);
         final TextView tv2 = (TextView) findViewById(R.id.motd_date_textview);
         final TextView tv3 = (TextView) findViewById(R.id.motd_author_textview);
+        final TextView tv4 = (TextView) findViewById(R.id.motd_random);
 
         Log.d("web", "About To Create Website ArrayList");
         createWebsites();
         Log.d("web", "Created Website ArrayList");
-        getWebsite(tv1, tv2, tv3);
+        getWebsite(tv1, tv2, tv3, tv4);
 
         final Button button = findViewById(R.id.butt1);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getWebsite(tv1, tv2, tv3);
+                getWebsite(tv1, tv2, tv3, tv4);
             }
         });
     }
@@ -107,11 +108,12 @@ public class Activity3 extends AppCompatActivity {
         Websites.add(web3);
     }
 
-    private void getWebsite(final TextView tv1, final TextView tv2, final TextView tv3) {
+    private void getWebsite(final TextView tv1, final TextView tv2, final TextView tv3, final TextView tv4) {
 
         tv1.setText("Loading...");
         tv2.setText("Loading...");
         tv3.setText("Loading...");
+        tv4.setText("Loading...");
 
 
 
@@ -147,12 +149,13 @@ public class Activity3 extends AppCompatActivity {
                     public void run() {
                         tv1.setText(builder.toString());
                         tv2.setText(web.name);
-                        tv3.setText("Author: " + web.author);
+                        tv4.setText(Factoid.getFactoid());
                     }
                 });
             }
         }).start();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
