@@ -18,8 +18,12 @@ public class Factoid {
 
     public static ArrayList<Coin> getFactoid()
     {
-        buildCoins();
         return coinInfo;
+
+    }
+    public static void genFactoid()
+    {
+        buildCoins();
     }
     private static void buildCoins()
     {
@@ -47,42 +51,48 @@ public class Factoid {
                     }
                     Log.d("factoid", coins.toString());
 
-                    for(String id : coins)
-                    {
-                        String nameInfo = doc.getElementById(id).getElementsByClass("currency-name-container").outerHtml().replaceFirst("<", "");
-                        String priceInfo = doc.getElementById(id).getElementsByClass("price").outerHtml().replaceFirst("<", "");
-                        String capInfo = doc.getElementById(id).getElementsByClass("no-wrap market-cap text-right").outerHtml().replaceFirst("<", "");
-                        String volumeInfo = doc.getElementById(id).getElementsByClass("volume").outerHtml().replaceFirst("<", "");
-                        String supplyInfo = doc.getElementById(id).getElementsByClass("no-wrap text-right circulating-supply").outerHtml().replaceFirst("<", "");
-                        String changeInfo = doc.getElementById(id).outerHtml();
+                    try {
+                    for(String id : coins) {
+                            String nameInfo = doc.getElementById(id).getElementsByClass("currency-name-container").outerHtml().replaceFirst("<", "");
+                            String priceInfo = doc.getElementById(id).getElementsByClass("price").outerHtml().replaceFirst("<", "");
+                            String capInfo = doc.getElementById(id).getElementsByClass("no-wrap market-cap text-right").outerHtml().replaceFirst("<", "");
+                            String volumeInfo = doc.getElementById(id).getElementsByClass("volume").outerHtml().replaceFirst("<", "");
+                            String supplyInfo = doc.getElementById(id).getElementsByClass("no-wrap text-right circulating-supply").outerHtml().replaceFirst("<", "");
+                            String changeInfo = doc.getElementById(id).outerHtml();
 
-                        changeInfo = changeInfo.substring(changeInfo.indexOf("data-percentusd"), changeInfo.indexOf("%<")+3);
-                        changeInfo = changeInfo.substring(changeInfo.indexOf(">")+1, changeInfo.indexOf("<"));
+                            changeInfo = changeInfo.substring(changeInfo.indexOf("data-percentusd"), changeInfo.indexOf("%<") + 3);
+                            changeInfo = changeInfo.substring(changeInfo.indexOf(">") + 1, changeInfo.indexOf("<"));
 
-                        capInfo = capInfo.substring(capInfo.indexOf(">") + 1, capInfo.indexOf("<"));
-                        capInfo = capInfo.trim();
-                        if(capInfo.contains("e"))
-                        {
-                            capInfo = capInfo.substring(0, capInfo.indexOf("e"));
-                            capInfo = capInfo.replace(".","");
+                            capInfo = capInfo.substring(capInfo.indexOf(">") + 1, capInfo.indexOf("<"));
+                            capInfo = capInfo.trim();
+                            if (capInfo.contains("e")) {
+                                capInfo = capInfo.substring(0, capInfo.indexOf("e"));
+                                capInfo = capInfo.replace(".", "");
+                            }
+                            NumberFormat myFormat = NumberFormat.getInstance();
+                            myFormat.setGroupingUsed(true);
+                            capInfo = "$" + myFormat.format(Double.parseDouble(capInfo));
+
+                            Log.d("factoid", changeInfo);
+                            coinInfo.add(new Coin(
+                                    nameInfo.substring(nameInfo.indexOf(">") + 1, nameInfo.indexOf("<")),
+                                    id,
+                                    capInfo,
+                                    priceInfo.substring(priceInfo.indexOf(">") + 1, priceInfo.indexOf("<")),
+                                    volumeInfo.substring(volumeInfo.indexOf(">") + 1, volumeInfo.indexOf("<")),
+                                    supplyInfo.substring(supplyInfo.indexOf("er>") + 3, supplyInfo.indexOf("</sp")),
+                                    changeInfo));
+                            // Log.d("factoid", coinInfo.get(0).getDetails());
+                            // Log.d("factoid",  Integer.toString(nameInfo.substring(nameInfo.indexOf(">"), nameInfo.length()-1).indexOf("<")+nameInfo.indexOf(">")));
+                            // Log.d("factoid",  nameInfo.substring(nameInfo.indexOf(">") + 1, nameInfo.indexOf("<")));
                         }
-                        NumberFormat myFormat = NumberFormat.getInstance();
-                        myFormat.setGroupingUsed(true);
-                        capInfo = "$" + myFormat.format(Double.parseDouble(capInfo));
 
-                        Log.d("factoid",  changeInfo);
-                        coinInfo.add(new Coin(
-                                nameInfo.substring(nameInfo.indexOf(">") + 1, nameInfo.indexOf("<")),
-                                id,
-                                capInfo,
-                                priceInfo.substring(priceInfo.indexOf(">") + 1, priceInfo.indexOf("<")),
-                                volumeInfo.substring(volumeInfo.indexOf(">") + 1, volumeInfo.indexOf("<")),
-                                supplyInfo.substring(supplyInfo.indexOf("er>") + 3, supplyInfo.indexOf("</sp")),
-                                changeInfo));
-                       // Log.d("factoid", coinInfo.get(0).getDetails());
-                       // Log.d("factoid",  Integer.toString(nameInfo.substring(nameInfo.indexOf(">"), nameInfo.length()-1).indexOf("<")+nameInfo.indexOf(">")));
-                       // Log.d("factoid",  nameInfo.substring(nameInfo.indexOf(">") + 1, nameInfo.indexOf("<")));
                     }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                     for(Coin c : coinInfo)
                     {
                         Log.d("factoid",  c.getDetails());

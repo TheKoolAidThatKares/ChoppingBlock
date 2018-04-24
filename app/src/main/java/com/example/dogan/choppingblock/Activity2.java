@@ -3,6 +3,7 @@ package com.example.dogan.choppingblock;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,6 +24,17 @@ import static com.example.dogan.choppingblock.Factoid.getFactoid;
 
 public class Activity2 extends AppCompatActivity {
 
+    String[] mobileArray = {"Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading",
+            "Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading","Loading"};
+    ArrayList<Coin> coinInfo = new ArrayList<Coin>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +47,33 @@ public class Activity2 extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.ic_iconfinder_icon);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        coinInfo = getFactoid();
 
+        Log.d("CoinStuff", "Got factoid");
+
+
+        Log.d("CoinStuff", "waited");
+
+        coinInfo.add(new Coin("dslkfjasl;","","","","","",""));
+
+        for(int name = 0; name < 100; name++) {
+            mobileArray[name] = coinInfo.get(name).name;
+            mobileArray[name] = mobileArray[name].concat("\n\n\t\tPrice: ").concat(coinInfo.get(name).price);
+            mobileArray[name] = mobileArray[name].concat("\n\t\tMarket Cap: ").concat(coinInfo.get(name).marketcap);
+            mobileArray[name] = mobileArray[name].concat("\n\t\tVolume (24hr): ").concat(coinInfo.get(name).volume);
+            mobileArray[name] = mobileArray[name].concat("\n\t\tTotal Supply: ").concat(coinInfo.get(name).supply);
+            mobileArray[name] = mobileArray[name].concat("\n\t\tChange (24hr): ").concat(coinInfo.get(name).change);
+        }
+
+
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+               R.layout.activity_listview, mobileArray);
+
+        ListView listView = (ListView) findViewById(R.id.allCoins);
+        listView.setAdapter(adapter);
+
+/*
         TextView currencyName1 = findViewById(R.id.currency_name_1);
         TextView currencyPrice1 = findViewById(R.id.currency_price_1);
         TextView currencyName2 = findViewById(R.id.currency_name_2);
@@ -54,7 +94,7 @@ public class Activity2 extends AppCompatActivity {
         TextView currencyPrice9 = findViewById(R.id.currency_price_9);
         TextView currencyName10 = findViewById(R.id.currency_name_10);
         TextView currencyPrice10 = findViewById(R.id.currency_price_10);
-
+*/
     }
 
 
@@ -96,14 +136,14 @@ public class Activity2 extends AppCompatActivity {
 
     public void refresh()
     {
-        //final View view1 = (View) findViewById(R.id.activity_2);
+        final View view1 = (View) findViewById(R.id.activity_2);
         final View view2 = (View) findViewById(R.id.action_bar);
         //final View view3 = (View) findViewById(R.id.graph);
         final View view5 = (View) findViewById(R.id.bottom_toolbar);
 
         Context context = this;
 
-        //ColorChanger.changeColor(view1, "primary.txt", context);
+        ColorChanger.changeColor(view1, "primary.txt", context);
         ColorChanger.changeColor(view2, "secondary.txt", context);
         //ColorChanger.changeColor(view3, "primary.txt", context);
         ColorChanger.changeColor(view5, "tertiary.txt", context);

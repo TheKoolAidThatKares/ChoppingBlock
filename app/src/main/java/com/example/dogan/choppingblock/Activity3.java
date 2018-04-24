@@ -113,7 +113,7 @@ public class Activity3 extends AppCompatActivity {
         tv1.setText("Loading...");
         tv2.setText("Loading...");
         tv3.setText("Loading...");
-        tv4.setText("Loading...");
+        tv4.setText("");
 
 
 
@@ -149,7 +149,7 @@ public class Activity3 extends AppCompatActivity {
                     public void run() {
                         tv1.setText(builder.toString());
                         tv2.setText(web.name);
-                        tv4.setText(Factoid.getFactoid());
+                        tv3.setText(web.author);
                     }
                 });
             }
